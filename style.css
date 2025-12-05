@@ -1,0 +1,39 @@
+body {
+    background-color: #242424;
+}
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.startStopBtn {
+    text-align: center;
+    width: 50px;
+    height: 30px;
+    background-color: seagreen;
+    border: 2px;
+    border-radius: 6px;
+}
+.resetBtn {
+    text-align: center;
+    width: 50px;
+    height: 30px;
+    background-color: indianred;
+    border: 2px;
+    border-radius: 6px;
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+    padding: 2%;
+}
+.clock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 260px;
+    background-color: palevioletred;
+    margin-bottom: 5px;
+}
