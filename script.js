@@ -19,17 +19,24 @@ clearInterval(intervalTimerSet);
 */
 // 1. DEFINISANJE STANJA
 // Počinjemo sa npr. 10 sekundi radi testiranja (kasnije stavi 1500 za 25 min)
-let remainingTime = 10;
+let remainingTime = 1 * 60;
 let timerInterval = null; // Ovde ćemo čuvati ID intervala da bismo mogli da ga stopiramo
 
 // 2. FUNKCIJA KOJA SE POKREĆE SVAKE SEKUNDE
 function otkucaj() {
   // KORAK A: Smanji remainingTime za 1
   // (Tvoj kod ovde: kako smanjiti promenljivu za 1?)
-
+  let minutes = 0;
+  let seconds = 0;
   remainingTime--;
+  minutes = Math.floor(remainingTime / 60);
+  seconds = remainingTime - minutes * 60;
+  // seconds = Math.floor(remainingTime) % 60;
   // KORAK B: Proveri u konzoli da li radi
-  console.log(remainingTime);
+  // console.log(remainingTime);
+  // console.log(minutes);
+  // console.log(seconds);
+  console.log(Math.round(minutes) + ":" + seconds);
 
   // KORAK C: Provera kraja
   if (remainingTime <= 0) {
