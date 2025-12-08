@@ -1,5 +1,41 @@
+/* Osnovni reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Slike postaju fleksibilne i ne izlaze iz svog kontejnera */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* Nasleđivanje fontova za input polja i dugmad (ovo browseri često zeznu) */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Uklanjanje tačaka sa lista */
+ul,
+ol {
+    list-style: none;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
 body {
-    background-color: #242424;
+    background-color: #1c1c1e;
 }
 section {
     display: flex;
@@ -7,21 +43,23 @@ section {
     justify-content: center;
     height: 100vh;
 }
-.startStopBtn {
+.startPauseBtn {
     text-align: center;
-    width: 50px;
-    height: 30px;
+    width: 65px;
+    height: 35px;
     background-color: seagreen;
     border: 2px;
     border-radius: 6px;
+    font-weight: 300;
 }
 .resetBtn {
     text-align: center;
-    width: 50px;
-    height: 30px;
+    width: 65px;
+    height: 35px;
     background-color: indianred;
     border: 2px;
     border-radius: 6px;
+    font-weight: 300;
 }
 .buttons {
     display: flex;
@@ -34,6 +72,7 @@ section {
     justify-content: center;
     width: 300px;
     height: 260px;
-    background-color: palevioletred;
     margin-bottom: 5px;
+    font-size: 6rem;
+    color: ghostwhite;
 }

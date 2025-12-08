@@ -1,10 +1,11 @@
 let normal = 25;
 let shortBreak = 5;
 let longBreak = 10;
-const startStopBtn = document.querySelector(".startStopBtn");
-startStopBtn.addEventListener("click", () => {
-  console.log("clicked");
-});
+const startPauseBtn = document.querySelector(".startPauseBtn");
+const resetBtn = document.querySelector(".resetBtn");
+const clock = document.querySelector(".clock");
+clock.innerHTML = "25:00";
+
 /*
 let timer = () => {
   if (normal > 0) {
@@ -19,11 +20,12 @@ clearInterval(intervalTimerSet);
 */
 // 1. DEFINISANJE STANJA
 // Počinjemo sa npr. 10 sekundi radi testiranja (kasnije stavi 1500 za 25 min)
-let remainingTime = 1 * 60;
+let remainingTime = 25 * 60;
 let timerInterval = null; // Ovde ćemo čuvati ID intervala da bismo mogli da ga stopiramo
+let timerStatus = false;
 
 // 2. FUNKCIJA KOJA SE POKREĆE SVAKE SEKUNDE
-function otkucaj() {
+function tick() {
   // KORAK A: Smanji remainingTime za 1
   // (Tvoj kod ovde: kako smanjiti promenljivu za 1?)
   let minutes = 0;
@@ -36,6 +38,7 @@ function otkucaj() {
   // console.log(remainingTime);
   // console.log(minutes);
   // console.log(seconds);
+  clock.innerHTML = minutes + ":" + seconds;
   console.log(Math.round(minutes) + ":" + seconds);
 
   // KORAK C: Provera kraja
@@ -44,6 +47,7 @@ function otkucaj() {
     // 1. Moramo da zaustavimo interval (koristi clearInterval i prosledi mu tajmerInterval)
     // 2. Ispiši "Kraj!"
     clearInterval(timerInterval);
+    timerStatus = false;
     console.log("Finished pomodoro session!");
   }
 }
@@ -52,7 +56,33 @@ function otkucaj() {
 function startTimer() {
   // Provera da ne pokrenemo dva tajmera istovremeno
   if (timerInterval === null) {
-    timerInterval = setInterval(otkucaj, 1000);
+    timerInterval = setInterval(tick, 1000);
+    timerStatus = true;
+    startPauseBtn.innerHTML = "Pause";
   }
 }
-startTimer();
+
+function clearTimer() {
+  clearInterval(timerInterval);
+  clock.innerHTML = "25:00";
+  startPauseBtn.innerHTML = "Start";
+  timerInterval = null;
+  remainingTime = 25 * 60;
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  startPauseBtn.innerHTML = "Resume";
+}
+
+startPauseBtn.addEventListener("click", () => {
+  if (timerInterval !== null) pauseTimer();
+  else {
+    startTimer();
+  }
+});
+
+resetBtn.addEventListener("click", () => {
+  clearTimer();
+});
