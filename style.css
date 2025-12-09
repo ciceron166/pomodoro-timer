@@ -76,3 +76,7 @@ section {
     font-size: 6rem;
     color: ghostwhite;
 }
+
+.pomodoro-duration {
+    align-items: center;
+}

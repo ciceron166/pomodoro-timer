@@ -1,10 +1,7 @@
-let normal = 25;
-let shortBreak = 5;
-let longBreak = 10;
 const startPauseBtn = document.querySelector(".startPauseBtn");
 const resetBtn = document.querySelector(".resetBtn");
 const clock = document.querySelector(".clock");
-clock.innerHTML = "25:00";
+// clock.innerHTML = "25:00";
 
 /*
 let timer = () => {
@@ -21,8 +18,19 @@ clearInterval(intervalTimerSet);
 // 1. DEFINISANJE STANJA
 // Počinjemo sa npr. 10 sekundi radi testiranja (kasnije stavi 1500 za 25 min)
 let remainingTime = 25 * 60;
+let shortBreak = 5;
+let longBreak = 10;
 let timerInterval = null; // Ovde ćemo čuvati ID intervala da bismo mogli da ga stopiramo
 let timerStatus = false;
+
+// Source - https://stackoverflow.com/a
+// Posted by Uri, modified by community. See post 'Timeline' for change history
+// Retrieved 2025-12-09, License - CC BY-SA 4.0
+
+function play() {
+  var audio = new Audio("sounds/Tink.mp3");
+  audio.play();
+}
 
 // 2. FUNKCIJA KOJA SE POKREĆE SVAKE SEKUNDE
 function tick() {
@@ -49,6 +57,7 @@ function tick() {
     clearInterval(timerInterval);
     timerStatus = false;
     console.log("Finished pomodoro session!");
+    play();
   }
 }
 
