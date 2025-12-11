@@ -4,8 +4,8 @@ const clock = document.querySelector(".clock");
 
 let remainingTime = 25 * 60;
 let pomodoro = true;
-let shortBreak = 5;
-let longBreak = 10;
+let shortBreak = false;
+let longBreak = false;
 let rounds = 0;
 let timerInterval = null; // Ovde ćemo čuvati ID intervala da bismo mogli da ga stopiramo
 let timerStatus = false;
@@ -15,12 +15,30 @@ function play() {
   audio.play();
 }
 function switchMode() {
-  if (pomodoro) {
-    remainingTime = 25 * 60;
-  } else if (rounds == 4 || rounds == 8) {
-    remainingTime = 10 * 60;
+  if (pomodoro === true) {
+    ++rounds;
+    pomodoro = false;
+    console.log("Finished pomodoro session!");
+
+    if (rounds % 4 == 0) {
+      longBreak = true;
+      shortBreak = false;
+      remainingTime = 10 * 60;
+      console.log("Starting long break, take a rest ;)");
+    } else {
+      shortBreak = true;
+      longBreak = false;
+      remainingTime = 5 * 60;
+      console.log("Take a little rest");
+    }
+    startTimer();
   } else {
-    remainingTime = 5 * 60;
+    pomodoro = true;
+    shortBreak = false;
+    longBreak = false;
+    remainingTime = 25 * 60;
+    console.log("Starting new pomodoro session");
+    startTimer();
   }
 }
 // 2. FUNKCIJA KOJA SE POKREĆE SVAKE SEKUNDE
@@ -38,11 +56,10 @@ function tick() {
   // KORAK C: Provera kraja
   if (remainingTime <= 0) {
     clearInterval(timerInterval);
+    timerInterval = null;
     timerStatus = false;
-    rounds++;
-    switchMode(); //nisam siguran dal treba ovde da bude?
-    console.log("Finished pomodoro session!");
     play();
+    switchMode(); //nisam siguran dal treba ovde da bude?
   }
 }
 
