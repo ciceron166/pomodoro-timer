@@ -1,6 +1,8 @@
 const startPauseBtn = document.querySelector(".startPauseBtn");
 const resetBtn = document.querySelector(".resetBtn");
 const clock = document.querySelector(".clock");
+const background = document.querySelector("section");
+const statusText = document.querySelector(".status");
 
 let remainingTime = 25 * 60;
 let pomodoro = true;
@@ -14,22 +16,39 @@ function play() {
   var audio = new Audio("sounds/Tink.mp3");
   audio.play();
 }
+function sendNotification(message) {
+  if (Notification.permission === "granted") {
+    new Notification("Pomodoro Timer", {
+      body: message,
+      icon: "/icons/iconfinder_Light_3069194.ico", // Opciona sličica
+    });
+  }
+}
+
 function switchMode() {
   if (pomodoro === true) {
     ++rounds;
     pomodoro = false;
+    statusText.textContent = "Finished pomodoro session!";
+    sendNotification("Finished pomodoro session!");
     console.log("Finished pomodoro session!");
 
     if (rounds % 4 == 0) {
       longBreak = true;
       shortBreak = false;
       remainingTime = 10 * 60;
+      background.style.backgroundColor = "#89B394";
+      statusText.textContent = "Starting long break, take a rest ;)";
       console.log("Starting long break, take a rest ;)");
+      sendNotification("Starting long break, take a rest ;");
     } else {
       shortBreak = true;
       longBreak = false;
       remainingTime = 5 * 60;
+      background.style.backgroundColor = "#89B394";
+      statusText.textContent = "Take a little rest!";
       console.log("Take a little rest");
+      sendNotification("Take a little rest");
     }
     startTimer();
   } else {
@@ -37,7 +56,10 @@ function switchMode() {
     shortBreak = false;
     longBreak = false;
     remainingTime = 25 * 60;
+    background.style.backgroundColor = "#1c1c1e";
     console.log("Starting new pomodoro session");
+    sendNotification("Starting new pomodoro session");
+    statusText.textContent = "";
     startTimer();
   }
 }
@@ -65,8 +87,11 @@ function tick() {
 
 // 3. POKRETANJE (ovo bi kasnije išlo na klik dugmeta)
 function startTimer() {
-  // Provera da ne pokrenemo dva tajmera istovremeno
+  if (Notification.requestPermission !== "granted") {
+    Notification.requestPermission();
+  }
   if (timerInterval === null) {
+    // Provera da ne pokrenemo dva tajmera istovremeno
     endTime = Date.now() + remainingTime * 1000;
     timerInterval = setInterval(tick, 100);
     tick();
@@ -81,6 +106,7 @@ function clearTimer() {
   startPauseBtn.innerHTML = "Start";
   timerInterval = null;
   remainingTime = 25 * 60;
+  background.style.backgroundColor = "#1c1c1e";
 }
 
 function pauseTimer() {

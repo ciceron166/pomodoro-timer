@@ -77,6 +77,10 @@ section {
     color: ghostwhite;
 }
 
-.pomodoro-duration {
+.pomodoro-duration,
+.status {
     align-items: center;
+    text-align: center;
+    color: ghostwhite;
+    padding-bottom: 20px;
 }
