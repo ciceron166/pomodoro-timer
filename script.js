@@ -20,7 +20,7 @@ function sendNotification(message) {
   if (Notification.permission === "granted") {
     new Notification("Pomodoro Timer", {
       body: message,
-      icon: "/icons/iconfinder_Light_3069194.ico", // Opciona sličica
+      icon: "./icons/iconfinder_Light_3069194.ico?", // Opciona sličica
     });
   }
 }
